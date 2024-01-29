@@ -43,4 +43,12 @@
             </div>
         </div>
     </div>
+
+    @vite('resources/js/app.js')
+    <script type="module">
+        Echo.channel(`notifications`)
+            .listen('.RatingIncreased', function(event) {
+                console.log('Рейтинг повышен для пользователя ' + event);
+            });
+    </script>
 @endsection

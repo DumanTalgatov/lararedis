@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RatingIncreased;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -40,5 +41,8 @@ class UserController extends Controller
 
         // Обновление рейтинга пользователя
         Redis::zadd('user_ranking', $newScore, $userId);
+
+        // Генерируем событие RatingIncreased
+        event(new RatingIncreased($userId));
     }
 }
